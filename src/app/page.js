@@ -9,7 +9,10 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      const locomotiveScroll = new LocomotiveScroll();
+      const locomotiveScroll = new LocomotiveScroll({
+        el:document.querySelector("[data-scroll-container]"),
+        smooth:true
+      });
 
       setTimeout(() => {
         setIsLoading(false);
@@ -19,7 +22,7 @@ export default function Home() {
     })();
   }, []);
   return (
-    <main>
+    <main data-scroll-container>
       <AnimatePresence>{isLoading && <Preloader />}</AnimatePresence>
       <Hero />
       <div>
