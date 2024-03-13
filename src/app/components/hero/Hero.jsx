@@ -29,8 +29,6 @@ const Hero = () => {
       <div className={style.description} data-scroll data-scroll-speed={0.7}>
         <Magnetic>
           <svg
-            data-scroll
-            data-scroll-speed={0.8}
             width="9"
             height="9"
             viewBox="0 0 9 9"
@@ -43,7 +41,7 @@ const Hero = () => {
             />
           </svg>
         </Magnetic>
-        <motion.p data-scroll data-scroll-speed={0.8} animate={"enter"} initial={"initial"} variants={description}>
+        <motion.p animate={"enter"} initial={"initial"} variants={description}>
           Freelance
         </motion.p>
         <motion.p
