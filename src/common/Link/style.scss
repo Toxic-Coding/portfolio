@@ -1,0 +1,40 @@
+.link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  a {
+    position: relative;
+    transition: all 0.4s ease-in, rotate 1s ease-out 0.1s;
+    &:nth-of-type(2) {
+      position: absolute;
+      transform: translateY(40px);
+    }
+    &::after {
+      content: "";
+      width: 5px;
+      height: 5px;
+      background: var(--bg-color);
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      scale: 0;
+      transition: all 0.3s ease;
+      //   transform: scale(0);
+    }
+  }
+  &:hover {
+    .link1 {
+      transform: translateY(-30px) rotate(-30deg);
+    }
+    .hoverLink {
+      transform: translateY(0);
+    }
+    .hoverLink::after {
+      scale: 1;
+    }
+  }
+}
