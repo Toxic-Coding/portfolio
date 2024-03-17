@@ -6,7 +6,7 @@ import "./style.scss"
 const Header = ({ color }) => {
   return (
     <>
-      <nav className="w-full absolute top-0 left-0 text-white z-10">
+      <nav className="w-full absolute top-0 left-0 text-white z-10" data-scroll data-scroll-speed={0.3} data-scroll-position="top">
         <div className="max-w-screen-xl flex items-center justify-between mx-auto py-5 sm:px-10 px-3 relative">
           <Magnetic>
             <Link

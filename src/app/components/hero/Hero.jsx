@@ -1,34 +1,80 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
 import { description, slideImage, slideUp } from "./animation";
 import { motion } from "framer-motion";
 import style from "./style.module.scss";
 import Magnetic from "@/common/magnetic/Magnetic";
+import Button from "@/common/button/Button";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 const Hero = () => {
+  const desc = useRef(null);
+  useGSAP(
+    (contaxt, contextSafe) => {
+      gsap.registerPlugin(ScrollTrigger);
+      const tl = gsap.timeline({ scrollTrigger: {} });
+      gsap.to("svg", {
+        rotate: 60,
+        y: -200,
+        scrollTrigger: {
+          trigger: "svg",
+          scrub: 1,
+          start: "clamp(top 40%)",
+          ease: "elastic.inOut",
+        },
+      });
+      gsap.to("#anim", {
+        y: -100,
+        opacity: 0,
+        ease: "power3",
+        rotationX: 180,
+        transformOrigin: "0% 50% -50",
+        stagger: {
+          each: 0.1,
+        },
+        scrollTrigger: {
+          trigger: "#anim",
+          scrub: 1,
+          start: "clamp(top 40%)",
+          snap: "labels",
+        },
+      });
+      gsap.to("img", {
+        scale: 0.2,
+        alpha: 0,
+        ease: "power3",
+        scrollTrigger: {
+          trigger: "img",
+          start: "clamp(bottom bottom)",
+          scrub: 1,
+          pin: true,
+        },
+      });
+    },
+    { scope: desc }
+  );
   return (
-    <motion.main
-      className={`${style.hero}`}
-      variants={slideUp}
-      initial="initial"
-      animate="enter"
-    >
+    <main ref={desc} className={`${style.hero}`}>
       <div
         className={style.personal_image}
-        data-scroll
-        data-scroll-speed={-0.7}
+        // data-scroll
+        // data-scroll-speed={-0.7}
       >
         <Image
           height={1000}
           width={1000}
           className={style.image}
-          src="/assets/hero.jpg"
+          src="/assets/adilbg.png"
+          alt="hero"
         />
       </div>
 
-      <div className={style.description} data-scroll data-scroll-speed={0.7}>
+      <div className={style.description} data-scroll data-scroll-speed={0.3}>
         <Magnetic>
           <svg
+            className="svg"
             width="9"
             height="9"
             viewBox="0 0 9 9"
@@ -41,19 +87,13 @@ const Hero = () => {
             />
           </svg>
         </Magnetic>
-        <motion.p animate={"enter"} initial={"initial"} variants={description}>
-          Freelance
-        </motion.p>
-        <motion.p
-          animate={"enter"}
-          initial={"initial"}
-          variants={description}
-          transition={{ delay: 0.5 }}
-        >
-          Web Developer
-        </motion.p>
+        <p id="anim">Freelance</p>
+        <p id="anim">Web Developer</p>
+        <Button id="anim" className={style.btn} background={"#0e1f60"}>
+          <span>Hire me</span>
+        </Button>
       </div>
-    </motion.main>
+    </main>
   );
 };
 

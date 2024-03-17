@@ -8,7 +8,7 @@ body {
   overflow-x: hidden;
   background-color: #070f2b;
   color: #fff;
-  cursor: wait;
+  /* cursor: wait; */
 }
 
 ::-webkit-scrollbar{
