@@ -4,12 +4,7 @@ import Hero from "./components/hero/Hero";
 import { AnimatePresence } from "framer-motion";
 import Preloader from "../common/preloader/Index";
 import About from "./components/about/About";
-import Bg from "@/common/background/Bg";
-import dynamic from "next/dynamic";
 export default function Home() {
-  const DynamicCanvasBg = dynamic(() => import("@/common/background/Bg"), {
-    loading: () => <p>loading...</p>,
-  });
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -44,7 +39,8 @@ export default function Home() {
         impedit eveniet quaerat dolorum alias reprehenderit doloremque earum
         vitae sed nemo aliquam, eius voluptas tempore consequuntur quos? Quo
         voluptatibus ea numquam nam inventore iusto eos! Repudiandae, veniam.
-      </p>  <p>
+      </p>{" "}
+      <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad quasi qui
         quaerat eaque recusandae soluta expedita deleniti nostrum tempore
         aliquam quam vero, fuga tenetur quidem perspiciatis cumque aliquid
@@ -56,7 +52,8 @@ export default function Home() {
         impedit eveniet quaerat dolorum alias reprehenderit doloremque earum
         vitae sed nemo aliquam, eius voluptas tempore consequuntur quos? Quo
         voluptatibus ea numquam nam inventore iusto eos! Repudiandae, veniam.
-      </p>  <p>
+      </p>{" "}
+      <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad quasi qui
         quaerat eaque recusandae soluta expedita deleniti nostrum tempore
         aliquam quam vero, fuga tenetur quidem perspiciatis cumque aliquid
@@ -68,7 +65,8 @@ export default function Home() {
         impedit eveniet quaerat dolorum alias reprehenderit doloremque earum
         vitae sed nemo aliquam, eius voluptas tempore consequuntur quos? Quo
         voluptatibus ea numquam nam inventore iusto eos! Repudiandae, veniam.
-      </p>  <p>
+      </p>{" "}
+      <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad quasi qui
         quaerat eaque recusandae soluta expedita deleniti nostrum tempore
         aliquam quam vero, fuga tenetur quidem perspiciatis cumque aliquid
@@ -80,7 +78,8 @@ export default function Home() {
         impedit eveniet quaerat dolorum alias reprehenderit doloremque earum
         vitae sed nemo aliquam, eius voluptas tempore consequuntur quos? Quo
         voluptatibus ea numquam nam inventore iusto eos! Repudiandae, veniam.
-      </p>  <p>
+      </p>{" "}
+      <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad quasi qui
         quaerat eaque recusandae soluta expedita deleniti nostrum tempore
         aliquam quam vero, fuga tenetur quidem perspiciatis cumque aliquid
@@ -92,7 +91,8 @@ export default function Home() {
         impedit eveniet quaerat dolorum alias reprehenderit doloremque earum
         vitae sed nemo aliquam, eius voluptas tempore consequuntur quos? Quo
         voluptatibus ea numquam nam inventore iusto eos! Repudiandae, veniam.
-      </p>  <p>
+      </p>{" "}
+      <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad quasi qui
         quaerat eaque recusandae soluta expedita deleniti nostrum tempore
         aliquam quam vero, fuga tenetur quidem perspiciatis cumque aliquid
@@ -105,8 +105,6 @@ export default function Home() {
         vitae sed nemo aliquam, eius voluptas tempore consequuntur quos? Quo
         voluptatibus ea numquam nam inventore iusto eos! Repudiandae, veniam.
       </p>
-      <DynamicCanvasBg />
-    
     </main>
   );
 }
