@@ -8,12 +8,20 @@ body {
   overflow-x: hidden;
   background-color: #070f2b;
   color: #fff;
+  user-select: none;
   /* cursor: wait; */
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 
-
-
+.bgEffect {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+}

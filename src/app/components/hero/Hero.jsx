@@ -1,8 +1,6 @@
 "use client";
-import React, { useRef, useEffect, useLayoutEffect } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
-import { description, slideImage, slideUp } from "./animation";
-import { motion } from "framer-motion";
 import style from "./style.module.scss";
 import Magnetic from "@/common/magnetic/Magnetic";
 import Button from "@/common/button/Button";
@@ -12,69 +10,112 @@ import { useGSAP } from "@gsap/react";
 const Hero = () => {
   const desc = useRef(null);
   useGSAP(
-    (contaxt, contextSafe) => {
+    () => {
       gsap.registerPlugin(ScrollTrigger);
-      const tl = gsap.timeline({ scrollTrigger: {} });
-      gsap.to("svg", {
-        rotate: 60,
-        y: -200,
-        scrollTrigger: {
-          trigger: "svg",
-          scrub: 1,
-          start: "clamp(top 40%)",
-          ease: "elastic.inOut",
-        },
+      const mm = gsap.matchMedia();
+      const tl = gsap.timeline();
+      mm.add("(min-width:650px)", () => {
+        tl.to("svg", {
+          rotate: 60,
+          y: -200,
+          scrollTrigger: {
+            trigger: "svg",
+            scrub: 1,
+            start: "clamp(top 40%)",
+            ease: "elastic.inOut",
+          },
+        }).to("img", {
+          rotate: 95,
+          y: -1000,
+          ease: "elastic",
+          scrollTrigger: {
+            trigger: "img",
+            start: "clamp(top 40%)",
+            end: "+=2000",
+            scrub: 1,
+          },
+        });
+        gsap.to("#anim", {
+          y: -100,
+          opacity: 0,
+          ease: "power3.in",
+          stagger: {
+            each: 0.1,
+          },
+          scrollTrigger: {
+            trigger: "#anim",
+            start: "clamp(top 40%)",
+            end: "+=2000",
+            toggleActions: "restart pause reverse reverse",
+          },
+        });
       });
-      gsap.to("#anim", {
-        y: -100,
-        opacity: 0,
-        ease: "power3",
-        rotationX: 180,
-        transformOrigin: "0% 50% -50",
-        stagger: {
-          each: 0.1,
-        },
-        scrollTrigger: {
-          trigger: "#anim",
-          scrub: 1,
-          start: "clamp(top 40%)",
-          snap: "labels",
-        },
+      mm.add("(max-width:650px)", () => {
+        gsap.to("[data-common]", {
+          alpha: 0,
+          y: -100,
+          ease: "power2",
+          stagger: {
+            each: 0.1,
+          },
+          scrollTrigger: {
+            trigger: "[data-common]",
+            start: "clamp(top 10%)",
+            scrub: 1,
+          },
+        });
       });
-      gsap.to("img", {
-        scale: 0.2,
-        alpha: 0,
-        ease: "power3",
-        scrollTrigger: {
-          trigger: "img",
-          start: "clamp(bottom bottom)",
-          scrub: 1,
-          pin: true,
-        },
-      });
+      function mouseMoveFunc(e) {
+        const depth = 10;
+        const moveX = (e.pageX - window.innerWidth / 2) / depth;
+        const moveY = (e.pageY - window.innerHeight / 2) / depth;
+        gsap.to("[data-description]", {
+          duration: 1,
+          x: moveX,
+          y: moveY,
+          ease: "slow",
+          stagger: 0.008,
+          overwrite: true,
+        });
+      }
+      document.addEventListener("mousemove", mouseMoveFunc);
+      return () => {
+        document.removeEventListener("mousemove", mouseMoveFunc);
+      };
     },
+
     { scope: desc }
   );
+
   return (
     <main ref={desc} className={`${style.hero}`}>
       <div
         className={style.personal_image}
-        // data-scroll
-        // data-scroll-speed={-0.7}
+        data-scroll
+        data-scroll-position="top"
+        data-scroll-speed={0.7}
       >
+        {/* <Magnetic> */}
         <Image
           height={1000}
           width={1000}
+          data-common
           className={style.image}
-          src="/assets/adilbg.png"
+          src="/assets/herosvg.svg"
           alt="hero"
         />
+        {/* </Magnetic> */}
       </div>
-
-      <div className={style.description} data-scroll data-scroll-speed={0.3}>
+      <div
+        className={style.description}
+        data-description
+        data-scroll
+        data-scroll-speed={0.3}
+      >
         <Magnetic>
           <svg
             className="svg"
+            data-common
             width="9"
             height="9"
             viewBox="0 0 9 9"
@@ -87,9 +128,19 @@ const Hero = () => {
             />
           </svg>
         </Magnetic>
-        <p id="anim">Freelance</p>
-        <p id="anim">Web Developer</p>
-        <Button id="anim" className={style.btn} background={"#0e1f60"}>
+        <p data-common id="anim">
+          Freelance
+        </p>
+        <p data-common id="anim">
+          Web Developer
+        </p>
+        <Button
+          data-common
+          id="anim"
+          className={style.btn}
+          background={"#62b0e9"}
+          onClick={() => alert("click working!")}
+        >
           <span>Hire me</span>
         </Button>
       </div>

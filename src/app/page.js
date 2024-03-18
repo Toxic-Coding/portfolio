@@ -6,7 +6,7 @@ import Preloader from "../common/preloader/Index";
 import About from "./components/about/About";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-
+  const [pos, setPos] = useState({ x: "50%", y: "50%" });
   useEffect(() => {
     (async () => {
       const LocomotiveScroll = (await import("locomotive-scroll")).default;
@@ -21,9 +21,30 @@ export default function Home() {
       //   window.scrollTo(0, 0);
       // }, 2000);
     })();
+    const handleMouseMove = (e) => {
+      const x = e.clientX + "px";
+      const y = e.clientY + "px";
+      setPos({ x, y });
+    };
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
+
   return (
     <main data-scroll-container>
+      <div
+        className="bgEffect max-sm:hidden"
+        // onMouseMove={mouseMove}
+        style={{
+          background: `radial-gradient(
+      circle at ${pos.x} ${pos.y},
+      transparent 10%,
+      rgba(0, 0, 0, 0.7) 20%
+    )`,
+        }}
+      ></div>
       <AnimatePresence>{isLoading && <Preloader />}</AnimatePresence>
       <Hero />
       <About />

@@ -12,6 +12,21 @@ section {
     .row {
       width: 100%;
       height: 120vh;
+      .col {
+        p {
+          font-size: 26px;
+          gap: 8px;
+          line-height: 1.3;
+          span {
+            margin-right: 3px;
+          }
+          .mask {
+            position: relative;
+            overflow-y: hidden;
+            display: inline-flex;
+          }
+        }
+      }
       .col:nth-of-type(2) {
         height: 105%;
         position: relative;

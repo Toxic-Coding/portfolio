@@ -1,38 +1,43 @@
 "use client";
 import React, { useRef } from "react";
+import { useInView, motion } from "framer-motion";
+import { slideUp } from "./anim";
+import Magnetic from "@/common/magnetic/Magnetic";
 import "./style.scss";
-import { Split } from "./Text";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 const About = () => {
-  const section = useRef(null);
-  useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.fromTo(
-      section.current,
-      { scale: 0.5, alpha: 0 },
-      {
-        scale: 1,
-        alpha: 1,
-        scrollTrigger: {
-          trigger: section.current,
-          // scrub: 1,
-          // start: "clamp(top bottom)",
-          // end: "clamp(bottom bottom)",
-          toggleActions: "restart reverse restart reverse",
-        },
-      }
-    );
-  });
+  const txt =
+    "I help companies from all over the world with tailor-made solutions. With each project, I push my work to new horizons, always putting quality first.";
+  const description = useRef(null);
+  const image = useRef(null);
+  const isInView = useInView(description);
   return (
-    <section ref={section}>
-      <div className="container mx-auto lg:px-20 py-10">
+    <section>
+      <div className="container mx-auto lg:px-10 py-10">
         <div className="row flex max-md:flex-col md:items-start items-center justify-center max-sm:px-2">
-          <div className="col md:w-1/3 w-full lg:px-5 py-2 max-md:mb-4">
-            <Split text="I help companies from all over the world with tailor-made solutions. With each project, I push my work to new horizons, always putting quality first." />
+          <div
+            className="col md:w-2/4 w-full px-2 py-2 max-md:mb-4"
+            ref={description}
+          >
+            <p className="m-0">
+              {txt.split(" ").map((char, i) => {
+                return (
+                  <span key={i} className="mask me-1">
+                    <Magnetic>
+                      <motion.span
+                        variants={slideUp}
+                        custom={i}
+                        animate={isInView ? "open" : "closed"}
+                        key={i}
+                      >
+                        {char}
+                      </motion.span>
+                    </Magnetic>
+                  </span>
+                );
+              })}
+            </p>
           </div>
-          <div className="col overflow-hidden md:w-2/3 w-full">
+          <div className="col overflow-hidden md:w-2/5 w-full">
             <div
               className="overlay-image "
               data-scroll
