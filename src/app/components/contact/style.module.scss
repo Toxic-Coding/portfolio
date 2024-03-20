@@ -1,0 +1,89 @@
+.contact {
+  min-height: 100vh;
+  padding: 20px 10px;
+  .container {
+    padding-top: 40px;
+    .row {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      .heading {
+        padding: 10px 20px;
+        max-width: 700px;
+        align-self: flex-start;
+        h1 {
+          font-size: calc(clamp(3.25em, 7vw, 8em) * 0.875) !important;
+        }
+      }
+      .col {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 10px 20px;
+        .form {
+          padding: 10px;
+          width: auto;
+          position: relative;
+          .form_col {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            font-size: 1.33em;
+            border-bottom: 1px solid #ffffff33;
+            padding: 0 calc(100vw - 90vw );
+            position: relative;
+            margin-top: 10px;
+            h5 {
+              position: absolute;
+              top: 1.5em;
+              left: 0;
+              opacity: 0.33;
+            }
+            label {
+              font-weight: 450;
+              display: block;
+              width: 100%;
+              padding-top: 1.6em;
+            }
+            .field {
+              display: block;
+              width: 100%;
+              font-weight: 450;
+              font-size: 1em;
+              background: transparent;
+              padding: 1em 0 2em 2px;
+              // border-bottom: 1px solid #ccc;
+              &:focus {
+                outline: none;
+              }
+            }
+          }
+          button {
+            position: absolute;
+            bottom: -2em;
+            right: 1em;
+            .submit {
+              width: 100px;
+              height: 100px;
+              border-radius: 50%;
+              border: 1px solid rgb(136, 136, 136);
+              cursor: pointer;
+              position: relative;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: #143ac5;
+              span {
+                z-index: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -7,81 +7,22 @@ import Button from "@/common/button/Button";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { animateOnDesktop, animateOnMobile } from "./animation";
+import useScrollTo from "@/common/scrollto/ScrollTo";
 const Hero = () => {
   const desc = useRef(null);
+  const { scrollTo } = useScrollTo();
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
       const mm = gsap.matchMedia();
       const tl = gsap.timeline();
       mm.add("(min-width:650px)", () => {
-        tl.to("svg", {
-          rotate: 60,
-          y: -200,
-          scrollTrigger: {
-            trigger: "svg",
-            scrub: 1,
-            start: "clamp(top 40%)",
-            ease: "elastic.inOut",
-          },
-        }).to("img", {
-          rotate: 95,
-          y: -1000,
-          ease: "elastic",
-          scrollTrigger: {
-            trigger: "img",
-            start: "clamp(top 40%)",
-            end: "+=2000",
-            scrub: 1,
-          },
-        });
-        gsap.to("#anim", {
-          y: -100,
-          opacity: 0,
-          ease: "power3.in",
-          stagger: {
-            each: 0.1,
-          },
-          scrollTrigger: {
-            trigger: "#anim",
-            start: "clamp(top 40%)",
-            end: "+=2000",
-            toggleActions: "restart pause reverse reverse",
-          },
-        });
+        animateOnDesktop();
       });
       mm.add("(max-width:650px)", () => {
-        gsap.to("[data-common]", {
-          alpha: 0,
-          y: -100,
-          ease: "power2",
-          stagger: {
-            each: 0.1,
-          },
-          scrollTrigger: {
-            trigger: "[data-common]",
-            start: "clamp(top 10%)",
-            scrub: 1,
-          },
-        });
+        animateOnMobile();
       });
-      function mouseMoveFunc(e) {
-        const depth = 10;
-        const moveX = (e.pageX - window.innerWidth / 2) / depth;
-        const moveY = (e.pageY - window.innerHeight / 2) / depth;
-        gsap.to("[data-description]", {
-          duration: 1,
-          x: moveX,
-          y: moveY,
-          ease: "slow",
-          stagger: 0.008,
-          overwrite: true,
-        });
-      }
-      document.addEventListener("mousemove", mouseMoveFunc);
-      return () => {
-        document.removeEventListener("mousemove", mouseMoveFunc);
-      };
     },
 
     { scope: desc }
@@ -101,7 +42,7 @@ const Hero = () => {
           width={1000}
           data-common
           className={style.image}
-          src="/assets/herosvg.svg"
+          src="/assets/hero.svg"
           alt="hero"
         />
         {/* </Magnetic> */}
@@ -139,7 +80,7 @@ const Hero = () => {
           id="anim"
           className={style.btn}
           background={"#62b0e9"}
-          onClick={() => alert("click working!")}
+          onClick={() => scrollTo("#contact")}
         >
           <span>Hire me</span>
         </Button>

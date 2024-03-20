@@ -1,4 +1,4 @@
-section {
+.about {
   overflow: hidden;
   position: relative;
   min-height: 120vh;
@@ -15,23 +15,13 @@ section {
       .col {
         p {
           font-size: 26px;
-          gap: 8px;
-          line-height: 1.3;
-          span {
-            margin-right: 3px;
-          }
-          .mask {
-            position: relative;
-            overflow-y: hidden;
-            display: inline-flex;
-          }
         }
       }
       .col:nth-of-type(2) {
         height: 105%;
         position: relative;
         overflow: hidden;
-        .overlay-image {
+        .overlay_image {
           width: 100%;
           height: 100%;
           position: absolute;

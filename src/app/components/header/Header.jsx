@@ -2,11 +2,17 @@ import CLink from "@/common/Link/Link";
 import Magnetic from "@/common/magnetic/Magnetic";
 import Link from "next/link";
 import React from "react";
-import "./style.scss"
+import "./style.scss";
+import Image from "next/image";
 const Header = ({ color }) => {
   return (
     <>
-      <nav className="w-full absolute top-0 left-0 text-white z-10" data-scroll data-scroll-speed={0.3} data-scroll-position="top">
+      <nav
+        className="w-full absolute top-0 left-0 text-white z-10"
+        data-scroll
+        data-scroll-speed={0.3}
+        data-scroll-position="top"
+      >
         <div className="max-w-screen-xl flex items-center justify-between mx-auto py-5 sm:px-10 px-3 relative">
           <Magnetic>
             <Link
@@ -21,26 +27,18 @@ const Header = ({ color }) => {
               </div>
             </Link>
           </Magnetic>
-          <button className="border-none outline-none md:hidden inline-flex items-center justify-between gap-2">
-            <span className="block w-2 h-2 rounded-full bg-black"></span>
-            Menu
-          </button>
-          <div
-            className="hidden relative w-full md:block md:w-auto"
-            id="navbar-multi-level"
+          <CLink
+            to={"https://www.linkedin.com/in/muhammad-adil-462624236"}
+            target="_blank"
           >
-            <ul className="menu flex items-center justify-evenly gap-10">
-              <CLink className={`text-${color}`} to="/work">
-                Work
-              </CLink>
-              <CLink className={`text-${color}`} to="/about">
-                About
-              </CLink>
-              <CLink className={`text-${color}`} to="/contact">
-                Contact
-              </CLink>
-            </ul>
-          </div>
+            <Image
+              src={"/linkedin.png"}
+              alt="linkedin"
+              width={30}
+              height={30}
+              className="rounded-lg object-cover"
+            />
+          </CLink>
         </div>
       </nav>
     </>

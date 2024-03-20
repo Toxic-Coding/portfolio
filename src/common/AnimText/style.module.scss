@@ -1,0 +1,14 @@
+.animText {
+  gap: 8px;
+  margin: 0;
+  line-height: 1.3;
+  span {
+    margin-right: 3px;
+  }
+  .mask {
+    position: relative;
+    overflow-y: hidden;
+    display: inline-flex;
+    margin-right: 4px;
+  }
+}
