@@ -1,55 +1,78 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import style from "./style.module.scss";
 import Text from "@/common/AnimText/Text";
 import Button from "@/common/button/Button";
-const Form = () => {
-  const [input, setInput] = useState({});
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setInput((values) => ({ ...values, [name]: value }));
-  };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(input);
-  };
+import { useFormik } from "formik";
+import { contactSchema } from "./schema";
+import { useGSAP } from "@gsap/react";
+const initialValues = {
+  name: "",
+  email: "",
+  company: "",
+  service: "",
+  message: "",
+};
+const CForm = () => {
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+    setSubmitting,
+  } = useFormik({
+    initialValues,
+    validationSchema: contactSchema,
+    onSubmit: (values, action) => {
+      setSubmitting(true);
+      console.log(
+        "🚀 ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
+        values
+      );
+      setSubmitting(false);
+      action.resetForm();
+    },
+  });
+
   const inputDom = [
     {
       name: "name",
       label: "What's your name?",
-      required: true,
       placeholder: "John Doe *",
       type: "text",
-      value: input.name,
+      value: values.name,
+      error: errors.name && touched.name ? errors.name : null,
     },
     {
       name: "email",
       label: "What's your email?",
-      required: true,
       placeholder: "john@doe.com *",
       type: "email",
-      value: input.email,
+      value: values.email,
+      error: errors.email && touched.email ? errors.email : null,
     },
     {
       name: "company",
       label: "What's the name of your organization?",
-      required: false,
       placeholder: "John & Doe ®",
       type: "text",
-      value: input.company,
+      value: values.company,
+      error: null,
     },
     {
       name: "service",
       label: "What services are you looking for?",
-      required: false,
       placeholder: "Web Development, Digital Marketing...",
       type: "text",
-      value: input.service,
+      value: values.service,
+      error: null,
     },
   ];
   return (
-    <form onSubmit={onSubmit} className={style.form}>
+    <form onSubmit={handleSubmit} className={style.form}>
       {inputDom.map((field, i) => {
         return (
           <div key={i} className={style.form_col}>
@@ -57,7 +80,16 @@ const Form = () => {
             <label htmlFor={field.name}>
               <Text txt={field.label} />
             </label>
-            <input className={style.field} onChange={handleChange} {...field} />
+            <input
+              className={style.field}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              id={field.name}
+              {...field}
+            />
+            {field.error !== null && (
+              <p className={style.field_err}>{field.error}</p>
+            )}
           </div>
         );
       })}
@@ -70,20 +102,23 @@ const Form = () => {
           className={style.field}
           type="text"
           name="message"
-          value={input.message}
+          value={values.message}
           onChange={handleChange}
-          required
+          onBlur={handleBlur}
           rows={6}
           placeholder="Hello Muhammad, can you help me with...*"
         />
+        {errors.message && touched.message ? (
+          <p className={style.field_err}>{errors.message}</p>
+        ) : null}
       </div>
-      <button type="submit">
+      <button disabled={isSubmitting} type="submit">
         <Button background={"#62b0e9"} className={style.submit}>
-          <span>Send</span>
+          <span>{isSubmitting ? "Sending..." : "Send"}</span>
         </Button>
       </button>
     </form>
   );
 };
 
-export default Form;
+export default CForm;

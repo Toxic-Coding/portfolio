@@ -6,6 +6,7 @@ import Preloader from "../common/preloader/Index";
 import About from "./components/about/About";
 import Contact from "./components/contact/Contact";
 import LinkEdin from "@/common/Linkedin/LinkEdin";
+import Services from "./components/services/Services";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [pos, setPos] = useState({ x: "50%", y: "50%" });
@@ -13,8 +14,20 @@ export default function Home() {
     (async () => {
       const LocomotiveScroll = (await import("locomotive-scroll")).default;
       const locomotiveScroll = new LocomotiveScroll({
-        el: document.querySelector("[data-scroll-container]"),
-        smooth: true,
+        lenisOptions: {
+          wrapper: window,
+          content: document.documentElement,
+          lerp: 0.1,
+          duration: 1.2,
+          orientation: "vertical",
+          gestureOrientation: "vertical",
+          smoothWheel: true,
+          smoothTouch: true,
+          wheelMultiplier: 2,
+          touchMultiplier: 2,
+          normalizeWheel: true,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        },
       });
 
       setTimeout(() => {
@@ -41,14 +54,15 @@ export default function Home() {
         style={{
           background: `radial-gradient(
       circle at ${pos.x} ${pos.y},
-      transparent 10%,
-      rgba(0, 0, 0, 0.5) 20%
+      transparent 15%,
+      rgba(0, 0, 0, 0.3) 20%
     )`,
         }}
       ></div>
       <AnimatePresence>{isLoading && <Preloader />}</AnimatePresence>
       <Hero />
       <About />
+      <Services />
       <Contact />
       <LinkEdin />
     </main>

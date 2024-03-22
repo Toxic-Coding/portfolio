@@ -1,38 +1,97 @@
-.about {
-  overflow: hidden;
-  position: relative;
+$min_padding: calc(var(--container-padding) / 2);
+.section {
   min-height: 120vh;
+  padding-top: 2em;
   .container {
+    width: 100%;
+    max-width: 100em;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    margin: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
     .row {
       width: 100%;
-      height: 120vh;
-      .col {
-        p {
-          font-size: 26px;
+      height: 100%;
+      display: block;
+      padding-left: $min_padding;
+      padding-right: $min_padding;
+      .col_outer {
+        width: 100%;
+        height: 100%;
+        display: block;
+        &:nth-of-type(1) {
+          width: 100%;
+          padding-bottom: clamp(3em, 8vw, $min_padding);
+          h1 {
+            font-family: sans-serif;
+            font-size: calc(clamp(3.25em, 7vw, 8em) * 0.875);
+            font-weight: 450;
+            font-style: normal;
+            line-height: 1.065;
+          }
+          border-bottom: 1.5px solid #cccccc;
         }
-      }
-      .col:nth-of-type(2) {
-        height: 105%;
-        position: relative;
-        overflow: hidden;
-        .overlay_image {
+        .row_inner {
           width: 100%;
           height: 100%;
-          position: absolute;
-          top: -10px;
-          left: 0;
-          background-image: url("/assets/about.jpg");
-          background-position: center center;
-          background-repeat: no-repeat;
-          background-size: cover;
-          display: block;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 0.5em;
+          padding-top: var(--container-padding);
+          @media (max-width: 720px) {
+            flex-wrap: wrap;
+          }
+          .col_inner {
+            margin-bottom: 0.5em;
+            position: relative;
+            padding-bottom: clamp(3em, 8vw, $min_padding);
+            &:first-child {
+              position: relative;
+              width: 35%;
+              svg {
+                position: absolute;
+                top: -1.5em;
+                left: 0;
+              }
+              @media (max-width: 720px) {
+                width: 100%;
+              }
+            }
+            &:last-child {
+              width: 65%;
+              min-height: 100vh;
+              overflow: hidden;
+              @media (max-width: 720px) {
+                width: 100%;
+              }
+              .overlay_image {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: -10px;
+                left: 0;
+                background-image: url("/assets/about.jpg");
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                display: block;
+              }
+            }
+          }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    .container {
+      padding-left: $min_padding;
+      padding-right: $min_padding;
+      .row {
+        padding: 0;
       }
     }
   }

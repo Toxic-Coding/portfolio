@@ -33,7 +33,7 @@ export const animateOnDesktop = () => {
       trigger: "#anim",
       start: "clamp(top 40%)",
       end: "+=2000",
-      toggleActions: "restart pause reverse reverse",
+      toggleActions: "restart restart reverse reverse",
     },
   });
 };

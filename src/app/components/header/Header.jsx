@@ -27,18 +27,14 @@ const Header = ({ color }) => {
               </div>
             </Link>
           </Magnetic>
-          <CLink
-            to={"https://www.linkedin.com/in/muhammad-adil-462624236"}
-            target="_blank"
-          >
-            <Image
-              src={"/linkedin.png"}
-              alt="linkedin"
-              width={30}
-              height={30}
-              className="rounded-lg object-cover"
-            />
-          </CLink>
+
+          <Image
+            src={"/favicon.png"}
+            alt="linkedin"
+            width={50}
+            height={50}
+            className="rounded-lg object-cover"
+          />
         </div>
       </nav>
     </>

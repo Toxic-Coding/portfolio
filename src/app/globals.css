@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+:root {
+  --container-padding: clamp(2.5em, 8vw, 8em);
+}
 * {
   margin: 0;
   padding: 0;
