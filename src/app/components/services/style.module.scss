@@ -23,12 +23,15 @@ $min_padding: calc(var(--container-padding) / 2);
         &:first-child {
           width: 100%;
           padding-bottom: $min_padding;
+          position: relative;
+          overflow: hidden;
           h2 {
             font-size: calc(clamp(3.25em, 5vw, 4.25em) * 0.75);
             font-weight: 450;
             font-style: normal;
             line-height: 1.065;
             margin-left: calc(var(--container-padding) / 1.5);
+            position: absolute;
           }
         }
         &:last-child {
@@ -36,7 +39,7 @@ $min_padding: calc(var(--container-padding) / 2);
           gap: 0.5em;
           padding-top: $min_padding;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           .card {
             display: block;
             // height: 20em;
@@ -106,11 +109,11 @@ $min_padding: calc(var(--container-padding) / 2);
         .col {
           &:first-child {
             h2 {
-              margin-left: .5em;
+              margin-left: 0.5em;
             }
           }
-          &:last-child{
-            .card{
+          &:last-child {
+            .card {
               margin: 0;
             }
           }

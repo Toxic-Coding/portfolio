@@ -1,8 +1,8 @@
 import React from "react";
-import Magnetic from "@/common/magnetic/Magnetic";
 import style from "./style.module.scss";
 import Text from "@/common/AnimText/Text";
 import Arrow from "@/common/arrow/Arrow";
+import TextReveal from "@/common/AnimText/TextReveal";
 const About = () => {
   const txt =
     "I help companies from all over the world with tailor-made solutions. With each project, I push my work to new horizons, always putting quality first.";
@@ -13,7 +13,7 @@ const About = () => {
         <div className={style.row}>
           <div className={style.col_outer}>
             <h1>
-              <Text txt={"Helping brands thrive in the digital world"} />
+              <TextReveal text={"Helping brands thrive in the digital world"} />
             </h1>
           </div>
           <div className={style.col_outer}>

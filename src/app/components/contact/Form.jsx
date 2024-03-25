@@ -5,7 +5,6 @@ import Text from "@/common/AnimText/Text";
 import Button from "@/common/button/Button";
 import { useFormik } from "formik";
 import { contactSchema } from "./schema";
-import { useGSAP } from "@gsap/react";
 const initialValues = {
   name: "",
   email: "",
@@ -28,10 +27,7 @@ const CForm = () => {
     validationSchema: contactSchema,
     onSubmit: (values, action) => {
       setSubmitting(true);
-      console.log(
-        "🚀 ~ file: Registration.jsx ~ line 11 ~ Registration ~ values",
-        values
-      );
+      console.log(values);
       setSubmitting(false);
       action.resetForm();
     },
@@ -71,6 +67,16 @@ const CForm = () => {
       error: null,
     },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      document.activeElement.blur();
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <form onSubmit={handleSubmit} className={style.form}>
       {inputDom.map((field, i) => {

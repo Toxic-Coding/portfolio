@@ -50,7 +50,7 @@ export default function Home() {
   return (
     <main data-scroll-container>
       <div
-        className="bgEffect max-sm:hidden"
+        className="bgEffect hidden"
         style={{
           background: `radial-gradient(
       circle at ${pos.x} ${pos.y},

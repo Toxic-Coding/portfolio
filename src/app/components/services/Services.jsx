@@ -4,16 +4,19 @@ import { motion, useInView } from "framer-motion";
 import data from "./data.json";
 import style from "./style.module.scss";
 import { slideUp } from "./anim";
+import TextReveal from "@/common/AnimText/TextReveal";
 const Services = () => {
   const rowRef = useRef(null);
+  const textRef = useRef(null);
   const isInView = useInView(rowRef);
+
   return (
     <section className={style.section}>
       <div className={style.container}>
         <div className={style.row}>
           <div className={style.col}>
-            <h2>
-              I can help you with
+            <h2 ref={textRef}>
+              <TextReveal text={"I can help you with"} />
               {Array.from({ length: 3 }).map((_, i) => {
                 return (
                   <motion.span
@@ -33,15 +36,19 @@ const Services = () => {
               })}
             </h2>
           </div>
-          <div className={style.col} data-scroll data-scroll-speed={0.1}>
+          <div
+            className={style.col}
+            data-scroll
+            data-scroll-speed={0.1}
+            ref={rowRef}
+          >
             {data.map((item, i) => {
               return (
                 <motion.div
-                  ref={rowRef}
                   className={style.card}
-                  // variants={slideUp}
-                  // custom={i}
-                  // animate={isInView ? "open" : "closed"}
+                  variants={slideUp}
+                  custom={i}
+                  animate={isInView ? "open" : "closed"}
                   key={i}
                 >
                   <h5>0{i + 1}</h5>
