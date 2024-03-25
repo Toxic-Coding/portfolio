@@ -17,23 +17,6 @@ const Services = () => {
           <div className={style.col}>
             <h2 ref={textRef}>
               <TextReveal text={"I can help you with"} />
-              {Array.from({ length: 3 }).map((_, i) => {
-                return (
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: [0, 0, 1, 1] }}
-                    transition={{
-                      ease: "linear",
-                      duration: 2,
-                      delay: 0.2 * i,
-                      repeat: Infinity,
-                    }}
-                    key={i}
-                  >
-                    .
-                  </motion.span>
-                );
-              })}
             </h2>
           </div>
           <div
@@ -44,26 +27,37 @@ const Services = () => {
           >
             {data.map((item, i) => {
               return (
-                <motion.div
-                  className={style.card}
-                  variants={slideUp}
-                  custom={i}
-                  animate={isInView ? "open" : "closed"}
+                <Card
                   key={i}
-                >
-                  <h5>0{i + 1}</h5>
-                  <span className={style.stripe}></span>
-                  <div className={style.card_body}>
-                    <h2>{item.title}</h2>
-                    <p>{item.description}</p>
-                  </div>
-                </motion.div>
+                  title={item.title}
+                  description={item.description}
+                  isInView={isInView}
+                  index={i}
+                />
               );
             })}
           </div>
         </div>
       </div>
     </section>
+  );
+};
+
+const Card = ({ title, description, isInView, index }) => {
+  return (
+    <motion.div
+      className={style.card}
+      variants={slideUp}
+      custom={index}
+      animate={isInView ? "open" : "closed"}
+    >
+      <h5>0{index + 1}</h5>
+      <span className={style.stripe}></span>
+      <div className={style.card_body}>
+        <h2>{title}</h2>
+        <p>{description}</p>
+      </div>
+    </motion.div>
   );
 };
 

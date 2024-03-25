@@ -24,7 +24,6 @@ $min_padding: calc(var(--container-padding) / 2);
           width: 100%;
           padding-bottom: $min_padding;
           position: relative;
-          overflow: hidden;
           h2 {
             font-size: calc(clamp(3.25em, 5vw, 4.25em) * 0.75);
             font-weight: 450;
@@ -38,6 +37,7 @@ $min_padding: calc(var(--container-padding) / 2);
           width: 100%;
           gap: 0.5em;
           padding-top: $min_padding;
+          margin-top: 2em;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           .card {
