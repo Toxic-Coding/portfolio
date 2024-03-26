@@ -5,6 +5,8 @@ import Text from "@/common/AnimText/Text";
 import Button from "@/common/button/Button";
 import { useFormik } from "formik";
 import { contactSchema } from "./schema";
+import axios from "axios";
+import { Toaster,toast } from "sonner";
 const initialValues = {
   name: "",
   email: "",
@@ -13,6 +15,17 @@ const initialValues = {
   message: "",
 };
 const CForm = () => {
+  const contactReq = async (values) => {
+    console.log(values);
+    await axios
+      .post(`${process.env.HOST}/api/contact`, values)
+      .then((res) => {
+        toast.success(res.data.message);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.error);
+      });
+  };
   const {
     values,
     errors,
@@ -27,9 +40,9 @@ const CForm = () => {
     validationSchema: contactSchema,
     onSubmit: (values, action) => {
       setSubmitting(true);
-      console.log(values);
+      contactReq(values);
       setSubmitting(false);
-      action.resetForm();
+      // action.resetForm();
     },
   });
 
@@ -78,52 +91,55 @@ const CForm = () => {
     };
   }, []);
   return (
-    <form onSubmit={handleSubmit} className={style.form}>
-      {inputDom.map((field, i) => {
-        return (
-          <div key={i} className={style.form_col}>
-            <h5>0{i + 1}</h5>
-            <label htmlFor={field.name}>
-              <Text txt={field.label} />
-            </label>
-            <input
-              className={style.field}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              id={field.name}
-              {...field}
-            />
-            {field.error !== null && (
-              <p className={style.field_err}>{field.error}</p>
-            )}
-          </div>
-        );
-      })}
-      <div className={style.form_col}>
-        <h5>05</h5>
-        <label htmlFor="message">
-          <Text txt="Your message" />
-        </label>
-        <textarea
-          className={style.field}
-          type="text"
-          name="message"
-          value={values.message}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          rows={6}
-          placeholder="Hello Muhammad, can you help me with...*"
-        />
-        {errors.message && touched.message ? (
-          <p className={style.field_err}>{errors.message}</p>
-        ) : null}
-      </div>
-      <button disabled={isSubmitting} type="submit">
-        <Button background={"#62b0e9"} className={style.submit}>
-          <span>{isSubmitting ? "Sending..." : "Send"}</span>
-        </Button>
-      </button>
-    </form>
+    <>
+      <Toaster richColors position="top-right" />
+      <form onSubmit={handleSubmit} className={style.form}>
+        {inputDom.map((field, i) => {
+          return (
+            <div key={i} className={style.form_col}>
+              <h5>0{i + 1}</h5>
+              <label htmlFor={field.name}>
+                <Text txt={field.label} />
+              </label>
+              <input
+                className={style.field}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                id={field.name}
+                {...field}
+              />
+              {field.error !== null && (
+                <p className={style.field_err}>{field.error}</p>
+              )}
+            </div>
+          );
+        })}
+        <div className={style.form_col}>
+          <h5>05</h5>
+          <label htmlFor="message">
+            <Text txt="Your message" />
+          </label>
+          <textarea
+            className={style.field}
+            type="text"
+            name="message"
+            value={values.message}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            rows={6}
+            placeholder="Hello Muhammad, can you help me with...*"
+          />
+          {errors.message && touched.message ? (
+            <p className={style.field_err}>{errors.message}</p>
+          ) : null}
+        </div>
+        <button disabled={isSubmitting} type="submit">
+          <Button background={"#62b0e9"} className={style.submit}>
+            <span>{isSubmitting ? "Sending..." : "Send"}</span>
+          </Button>
+        </button>
+      </form>
+    </>
   );
 };
 

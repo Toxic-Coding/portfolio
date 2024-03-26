@@ -7,6 +7,7 @@ import About from "./components/about/About";
 import Contact from "./components/contact/Contact";
 import LinkEdin from "@/common/Linkedin/LinkEdin";
 import Services from "./components/services/Services";
+import { ToastContainer } from "react-toastify";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [pos, setPos] = useState({ x: "50%", y: "50%" });
