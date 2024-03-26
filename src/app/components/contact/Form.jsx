@@ -6,7 +6,7 @@ import Button from "@/common/button/Button";
 import { useFormik } from "formik";
 import { contactSchema } from "./schema";
 import axios from "axios";
-import { Toaster,toast } from "sonner";
+import { Toaster, toast } from "sonner";
 const initialValues = {
   name: "",
   email: "",
@@ -16,9 +16,8 @@ const initialValues = {
 };
 const CForm = () => {
   const contactReq = async (values) => {
-    console.log(values);
     await axios
-      .post(`${process.env.HOST}/api/contact`, values)
+      .post(`https://portfolio-server-tawny.vercel.app/api/contact`, values)
       .then((res) => {
         toast.success(res.data.message);
       })
