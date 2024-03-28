@@ -24,7 +24,7 @@ const CForm = () => {
       onSubmit: async (values, action) => {
         setLoading(true);
         await axios
-          .post(`${process.env.NEXT_PUBLIC_HOST}api/contact`, values)
+          .post(`${process.env.NEXT_PUBLIC_HOST}/api/contact`, values)
           .then((res) => {
             toast.success(res.data.message);
             setLoading(false);
