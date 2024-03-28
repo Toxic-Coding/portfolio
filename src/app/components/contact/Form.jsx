@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.module.scss";
 import Text from "@/common/AnimText/Text";
 import Button from "@/common/button/Button";
@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { contactSchema } from "./schema";
 import axios from "axios";
 import { Toaster, toast } from "sonner";
+import Image from "next/image";
 const initialValues = {
   name: "",
   email: "",
@@ -15,35 +16,26 @@ const initialValues = {
   message: "",
 };
 const CForm = () => {
-  const contactReq = async (values) => {
-    await axios
-      .post(`https://portfolio-server-tawny.vercel.app/api/contact`, values)
-      .then((res) => {
-        toast.success(res.data.message);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.error);
-      });
-  };
-  const {
-    values,
-    errors,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    isSubmitting,
-    setSubmitting,
-  } = useFormik({
-    initialValues,
-    validationSchema: contactSchema,
-    onSubmit: (values, action) => {
-      setSubmitting(true);
-      contactReq(values);
-      setSubmitting(false);
-      // action.resetForm();
-    },
-  });
+  const [loading, setLoading] = useState(false);
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: contactSchema,
+      onSubmit: async (values, action) => {
+        setLoading(true);
+        await axios
+          .post(`${process.env.NEXT_PUBLIC_HOST}api/contact`, values)
+          .then((res) => {
+            toast.success(res.data.message);
+            setLoading(false);
+            action.resetForm();
+          })
+          .catch((err) => {
+            toast.error(err.response.data.error);
+            setLoading(false);
+          });
+      },
+    });
 
   const inputDom = [
     {
@@ -81,8 +73,9 @@ const CForm = () => {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      document.activeElement.blur();
+    const handleScroll = (e) => {
+      const input = document.activeElement;
+      input.blur();
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -132,10 +125,19 @@ const CForm = () => {
             <p className={style.field_err}>{errors.message}</p>
           ) : null}
         </div>
-        <button disabled={isSubmitting} type="submit">
-          <Button background={"#62b0e9"} className={style.submit}>
-            <span>{isSubmitting ? "Sending..." : "Send"}</span>
-          </Button>
+        <button disabled={loading} type="submit">
+          {loading ? (
+            <Image
+              src={"/assets/loading.gif"}
+              alt="loading..."
+              width={70}
+              height={70}
+            />
+          ) : (
+            <Button background={"#62b0e9"} className={style.submit}>
+              <span>Send</span>
+            </Button>
+          )}
         </button>
       </form>
     </>
