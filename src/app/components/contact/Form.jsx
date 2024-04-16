@@ -72,16 +72,6 @@ const CForm = () => {
     },
   ];
 
-  useEffect(() => {
-    const handleScroll = (e) => {
-      const input = document.activeElement;
-      input.blur();
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
   return (
     <>
       <Toaster richColors position="top-right" />
